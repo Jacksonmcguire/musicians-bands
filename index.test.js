@@ -31,6 +31,18 @@ describe('Band and Musician Models', () => {
     })
 
     test('has correct associations', async () => {
-        
+        const newMusician = await Musician.create({
+            name: 'band1',
+            instrument: 'guitar'
+        })
+        const newBand = await Band.create({
+            name: 'band1',
+            genre: 'genre1'
+        })
+
+        await newBand.addMusician(2)
+        await newBand.addMusician(1)
+        const bandsMusicians = await newBand.getMusicians()
+        expect(bandsMusicians.length).toBe(2)
     })
 })
